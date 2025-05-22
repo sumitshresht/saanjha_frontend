@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Navbar/>
-      <Container display={'flex'} padding={0} marginRight={6}>
+      <Container display={'flex'} padding={0} margin={0}>
           <Sidebar/>
           <Center/>
 
