@@ -1,18 +1,20 @@
 
 import {Container, Box, Heading} from '@chakra-ui/react'
+import PostCard from './PostCard';
  
 const Center = () => {
     
     return (
-        <>
-        <Container>
-            <Box w={"2/4"} backgroundColor={"red"}>
-            <Heading>Post something about you.</Heading>
-            </Box>
-        </Container>
-        <Container></Container>
+        <Container 
+                display={'flex'} 
+                flexDirection={'column'}
+                >
+                <Container>
+                    <PostCard/>
+                </Container>
+                <Container>hwlol moshimosh</Container>
             
-        </>
+        </Container >
     );
 }
 
