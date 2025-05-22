@@ -1,33 +1,44 @@
-import {Container, VStack, Text, Box, StackSeparator} from "@chakra-ui/react";
-
-
+import { Box, VStack, Text, HStack } from "@chakra-ui/react";
+import {
+  MdRssFeed,
+  MdGroup,
+  MdMessage,
+  MdPhoto,
+  MdNotifications,
+  MdSettings,
+  MdHelpCenter,
+} from "react-icons/md";
 
 const Sidebar = () => {
-
   return (
-    <Box display={'flex'} h={"94vh"} pos={'sticky'} justifyContent={'space-between'} alignItems={'flex-start'} flexDirection={'column'} bg={'blue'} w={'40%'}  padding={0} >
-        <Container  bg={'yellow'} h={"3/5"}>
-            <VStack h={"1/2"} separator={<StackSeparator />}>
-              <Text>Feed</Text>
-              <Text>Friends</Text>
-              <Text>Message</Text>
-              <Text>Photos</Text>
-              <Text>Notification</Text>
-            
-            </VStack>
+    <Box
+      bg="gray.800"
+      w="400px"
+      h="100vh"
+      color="white"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+      p={4}
+      position="sticky"
+      top="0"
+    >
+      {/* Top Section */}
+      <VStack align="start" marginLeft={10} marginTop={5} spacing={5}>
+        <HStack paddingBottom={3}><MdRssFeed /><Text>Feed</Text></HStack>
+        <HStack paddingBottom={3}><MdGroup /><Text>Friends</Text></HStack>
+        <HStack paddingBottom={3}><MdMessage /><Text>Message</Text></HStack>
+        <HStack paddingBottom={3}><MdPhoto /><Text>Photos</Text></HStack>
+        <HStack paddingBottom={3}><MdNotifications /><Text>Notification</Text></HStack>
+      </VStack>
 
-        </Container >
-        <Container bg={'red'} h={"1/6"}>
-            <VStack>
-              <Text>Settings</Text>
-              <Text>Help Center</Text>       
-            </VStack>
-
-        </Container>
+      {/* Bottom Section */}
+      <VStack align="start" marginLeft={10} marginBottom={10} spacing={4}>
+        <HStack paddingBottom={3}><MdSettings /><Text>Setting</Text></HStack>
+        <HStack paddingBottom={5}><MdHelpCenter /><Text>Help Center</Text></HStack>
+      </VStack>
     </Box>
   );
-}
+};
 
 export default Sidebar;
-
-
