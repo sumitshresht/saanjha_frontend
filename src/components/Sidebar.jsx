@@ -8,12 +8,17 @@ import {
   MdSettings,
   MdHelpCenter,
 } from "react-icons/md";
+import { useNavigate, useLocation } from "react-router";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
+
   return (
     <Box
       bg="gray.800"
-      w="400px"
+      w="300px"
       h="100vh"
       color="white"
       display="flex"
@@ -24,18 +29,126 @@ const Sidebar = () => {
       top="0"
     >
       {/* Top Section */}
-      <VStack align="start" marginLeft={10} marginTop={5} spacing={5}>
-        <HStack paddingBottom={3}><MdRssFeed /><Text>Feed</Text></HStack>
-        <HStack paddingBottom={3}><MdGroup /><Text>Friends</Text></HStack>
-        <HStack paddingBottom={3}><MdMessage /><Text>Message</Text></HStack>
-        <HStack paddingBottom={3}><MdPhoto /><Text>Photos</Text></HStack>
-        <HStack paddingBottom={3}><MdNotifications /><Text>Notification</Text></HStack>
+      <VStack align="start" spacing={3} px={4} pt={4}>
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          color="white"
+          onClick={() => navigate("/")} // Add onClick handler to navigate to settings
+          bg={isActive("/") ? "gray.700" : "transparent"}// Add onClick handler to navigate to feed
+          _focus={{ boxShadow: "outline" }}
+          
+          _hover={{ bg: "gray.600", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdRssFeed />
+          </Box>
+          <Text fontSize="md">Feed</Text>
+        </HStack>
+
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/friends")} // Add onClick handler to navigate to friends
+          bg={isActive("/friends") ? "gray.700" : "transparent"}
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdGroup />
+          </Box>
+          <Text fontSize="md">Friends</Text>
+        </HStack>
+
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/messages")} // Add onClick handler to navigate to settings
+          bg={isActive("/messages") ? "gray.700" : "transparent"}// Add onClick handler to navigate to feed
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdMessage />
+          </Box>
+          <Text fontSize="md">Message</Text>
+        </HStack>
+
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/photos")} // Add onClick handler to navigate to photos
+          bg={isActive("/photos") ? "gray.700" : "transparent"}
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdPhoto />
+          </Box>
+          <Text fontSize="md">Photos</Text>
+        </HStack>
+
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/notifications")} // Add onClick handler to navigate to notifications
+          bg={isActive("/notifications") ? "gray.700" : "transparent"}
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdNotifications />
+          </Box>
+          <Text fontSize="md">Notification</Text>
+        </HStack>
       </VStack>
 
+      <Box borderBottom="1px solid" borderColor="gray.700" my={4} mx={4} />
+
       {/* Bottom Section */}
-      <VStack align="start" marginLeft={10} marginBottom={10} spacing={4}>
-        <HStack paddingBottom={3}><MdSettings /><Text>Setting</Text></HStack>
-        <HStack paddingBottom={5}><MdHelpCenter /><Text>Help Center</Text></HStack>
+      <VStack align="start" spacing={3} marginBottom={20} px={4} pb={6}>
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/setting")} // Add onClick handler to navigate to settings
+          bg={isActive("/setting") ? "gray.700" : "transparent"}
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdSettings />
+          </Box>
+          <Text fontSize="md">Setting</Text>
+        </HStack>
+
+        <HStack
+          spacing={3}
+          py={2}
+          px={3}
+          borderRadius="md"
+          onClick={() => navigate("/help")} // Add onClick handler to navigate to help center
+          bg={isActive("/help") ? "gray.700" : "transparent"}
+          _hover={{ bg: "gray.700", cursor: "pointer" }}
+          transition="all 0.2s ease"
+        >
+          <Box fontSize="lg">
+            <MdHelpCenter />
+          </Box>
+          <Text fontSize="md">Help Center</Text>
+        </HStack>
       </VStack>
     </Box>
   );
