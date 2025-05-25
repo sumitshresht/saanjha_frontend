@@ -1,7 +1,9 @@
 
 import {Container, Box, Heading} from '@chakra-ui/react'
-import PostCard from './PostCard';
- 
+//import PostCard from './PostCard';
+//import PostList from './PostList'; // Uncomment if you want to use PostList instead of PostCard
+//import Feed from './Feed';
+ import PostFeed from './PostFeed';
 const Center = () => {
     
     return (
@@ -10,9 +12,9 @@ const Center = () => {
                 flexDirection={'column'}
                 >
                 <Container>
-                    <PostCard/>
+                    <PostFeed/>
                 </Container>
-                <Container>hwlol moshimosh</Container>
+                
             
         </Container >
     );
