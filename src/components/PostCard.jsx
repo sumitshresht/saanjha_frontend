@@ -15,9 +15,11 @@ import {
   AiOutlineDislike,
   AiFillDislike,
 } from "react-icons/ai";
-import { useState } from "react";
+import { Spacer } from "@chakra-ui/react";
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { useState, useEffect } from "react";
 
-const PostCard = ({ post, user }) => {
+const PostCard = ({ post, user, onUnsave }) => {
   const reactions =
     typeof post.reactions === "object"
       ? post.reactions
@@ -31,6 +33,37 @@ const PostCard = ({ post, user }) => {
   const handleReaction = (type) => {
     setReaction((prev) => (prev === type ? null : type));
   };
+  const handleSavePost = () => {
+  let saved = JSON.parse(localStorage.getItem("savedPosts")) || [];
+
+  const index = saved.findIndex(
+    (p) => p.title === post.title && p.body === post.body
+  );
+
+  if (index === -1) {
+    saved.push(post);
+    setIsSaved(true);
+  } else {
+    saved.splice(index, 1);
+    setIsSaved(false);
+    if (onUnsave) {
+      onUnsave(post); // notify parent immediately
+    }
+  }
+
+  localStorage.setItem("savedPosts", JSON.stringify(saved));
+};
+
+
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("savedPosts")) || [];
+    const found = saved.some(
+      (p) => p.title === post.title && p.body === post.body
+    );
+    setIsSaved(found);
+  }, [post]);
 
   return (
     <Card.Root
@@ -72,7 +105,7 @@ const PostCard = ({ post, user }) => {
           <Box height="1px" bg="gray.700" />
 
           {/* Reactions */}
-          <HStack spacing={5} pt={1}>
+          <HStack spacing={5} pt={1} align="center">
             {/* Like */}
             <HStack spacing={1} align="center">
               <Button
@@ -114,6 +147,22 @@ const PostCard = ({ post, user }) => {
                 {dislikeCount}
               </Text>
             </HStack>
+
+            {/* Spacer to push Save icon to the right */}
+            <Spacer />
+
+            {/* Save */}
+            <Button
+              variant="ghost"
+              p={0}
+              minW="auto"
+              onClick={handleSavePost}
+              color={isSaved ? "teal.300" : "gray.400"}
+              _hover={{ bg: "gray.700", color: "teal.300" }}
+              aria-label="Save"
+            >
+              <Icon as={isSaved ? BsBookmarkFill : BsBookmark} boxSize={5} />
+            </Button>
           </HStack>
         </Stack>
       </Card.Body>

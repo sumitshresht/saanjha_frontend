@@ -8,6 +8,7 @@ import {
   MdSettings,
   MdHelpCenter,
 } from "react-icons/md";
+import { BsBookmarkFill } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router";
 
 const Sidebar = () => {
@@ -76,9 +77,9 @@ const Sidebar = () => {
           transition="all 0.2s ease"
         >
           <Box fontSize="lg">
-            <MdMessage />
+            <BsBookmarkFill />
           </Box>
-          <Text fontSize="md">Message</Text>
+          <Text fontSize="md">Saved Post</Text>
         </HStack>
 
         <HStack
