@@ -12,11 +12,13 @@ import PostCard from "./PostCard";
 
 
 const Message = () => {
-  const user = {
-  name: "Dyno",
-  username: "@dyno",
-  avatar: "https://i.pravatar.cc/150?img=12",
+  const storedUser = JSON.parse(sessionStorage.getItem("user"));
+
+const user = {
+  name: storedUser ? `${storedUser.firstName} ${storedUser.lastName}` : "Guest",
+  avatar: "https://i.pravatar.cc/150?img=12", // optional: can be personalized later
 };
+
 const handleUnsave = (unsavedPost) => {
   setSavedPosts((prev) =>
     prev.filter(

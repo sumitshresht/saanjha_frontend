@@ -6,6 +6,9 @@ import {
   Text,
   HStack,
   Switch,
+  VStack,
+  Input,
+  Button,
 } from "@chakra-ui/react";
 import { LuSun, LuLock, LuDatabase } from "react-icons/lu";
 
@@ -14,12 +17,54 @@ export default function Setting() {
     localStorage.getItem("theme") === "dark"
   );
 
+  // Password-related states
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [storedPassword, setStoredPassword] = useState("");
+  const [message, setMessage] = useState({ text: "", type: "" });
+
   useEffect(() => {
     const theme = darkMode ? "dark" : "light";
-    document.documentElement.style.backgroundColor = darkMode ? "#1A202C" : "#F7FAFC";
+    document.documentElement.style.backgroundColor = darkMode
+      ? "#1A202C"
+      : "#F7FAFC";
     document.documentElement.style.color = darkMode ? "#F7FAFC" : "#1A202C";
     localStorage.setItem("theme", theme);
   }, [darkMode]);
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user?.password) {
+      setStoredPassword(user.password);
+    }
+  }, []);
+
+  const handlePasswordChange = () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setMessage({ text: "Please fill in all fields.", type: "error" });
+      return;
+    }
+
+    if (currentPassword !== storedPassword) {
+      setMessage({ text: "Current password is incorrect.", type: "error" });
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setMessage({ text: "New passwords do not match.", type: "error" });
+      return;
+    }
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    user.password = newPassword;
+    sessionStorage.setItem("user", JSON.stringify(user));
+
+    setMessage({ text: "Password updated successfully!", type: "success" });
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  };
 
   return (
     <Box maxW="800px" mx="auto" p={6}>
@@ -71,10 +116,10 @@ export default function Setting() {
 
         <Tabs.Content value="appearance">
           <Box p="4" bg="gray.50" borderRadius="md">
-            <Heading size="md" mb="2">Appearance</Heading>
-            <Text mb="4">
-              Customize your app's theme preferences.
-            </Text>
+            <Heading size="md" mb="2">
+              Appearance
+            </Heading>
+            <Text mb="4">Customize your app's theme preferences.</Text>
             <HStack spacing={4} alignItems="center">
               <Text>Dark Mode</Text>
               <Switch.Root
@@ -92,14 +137,63 @@ export default function Setting() {
 
         <Tabs.Content value="account-security">
           <Box p="4" bg="gray.50" borderRadius="md">
-            <Heading size="md" mb="2">Account & Security</Heading>
-            <Text>Update your password, enable 2FA, and manage your credentials.</Text>
+            <Heading size="md" mb="2">
+              Account & Security
+            </Heading>
+            <Text mb="4">Update your password below.</Text>
+
+            {message.text && (
+              <Box
+                bg={message.type === "success" ? "green.100" : "red.100"}
+                color={message.type === "success" ? "green.800" : "red.800"}
+                p={3}
+                borderRadius="md"
+                mb={4}
+                fontWeight="medium"
+                textAlign="center"
+              >
+                {message.text}
+              </Box>
+            )}
+
+            <VStack spacing={4}>
+              <Input
+                type="password"
+                placeholder="Current Password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                bg="white"
+              />
+              <Input
+                type="password"
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                bg="white"
+              />
+              <Input
+                type="password"
+                placeholder="Confirm New Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                bg="white"
+              />
+              <Button
+                colorScheme="teal"
+                width="full"
+                onClick={handlePasswordChange}
+              >
+                Update Password
+              </Button>
+            </VStack>
           </Box>
         </Tabs.Content>
 
         <Tabs.Content value="data-usage">
           <Box p="4" bg="gray.50" borderRadius="md">
-            <Heading size="md" mb="2">Data Usage</Heading>
+            <Heading size="md" mb="2">
+              Data Usage
+            </Heading>
             <Text>View and manage how your data is collected and used.</Text>
           </Box>
         </Tabs.Content>

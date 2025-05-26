@@ -3,11 +3,13 @@ import { VStack, Box, Spinner } from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import PostCreator from "./PostCreator";
 
+const storedUser = JSON.parse(sessionStorage.getItem("user"));
+
 const user = {
-  name: "Dyno",
-  username: "@dyno",
-  avatar: "https://i.pravatar.cc/150?img=12", // You can use any placeholder
+  name: storedUser ? `${storedUser.firstName} ${storedUser.lastName}` : "Guest",
+  avatar: "https://i.pravatar.cc/150?img=12", // optional: can be personalized later
 };
+
 
 const PostFeed = () => {
   const [posts, setPosts] = useState([]);

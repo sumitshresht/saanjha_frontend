@@ -14,6 +14,8 @@ import { useNavigate, useLocation } from "react-router";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
 
   const handleLogout = () => {
     // Example: Clear local storage and redirect to login
@@ -22,7 +24,6 @@ export default function Navbar() {
   };
 
   return (
-
     <Flex
       bg="gray.800"
       color="white"
@@ -105,8 +106,9 @@ export default function Navbar() {
             >
               <Flex align="center" gap={2}>
                 <Text fontWeight="medium" fontSize="sm" color="gray.100">
-                  Rahul Negi
+                  {fullName}
                 </Text>
+
                 <BsChevronDown color="white" />
               </Flex>
             </Button>

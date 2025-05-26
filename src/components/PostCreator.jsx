@@ -130,18 +130,18 @@ const PostCreator = ({ onPost, user }) => {
               />
 
               <Textarea
-  placeholder="What's on your mind?"
-  bg="gray.700"
-  border="none"
-  color="white"
-  height="150px"
-  resize="none"
-  _placeholder={{ color: "gray.400" }}
-  value={value}
-  onChange={(e) =>
-    setValue(e.currentTarget.value.slice(0, MAX_CHARACTERS))
-  }
-/>
+                placeholder="What's on your mind?"
+                bg="gray.700"
+                border="none"
+                color="white"
+                height="150px"
+                resize="none"
+                _placeholder={{ color: "gray.400" }}
+                value={value}
+                onChange={(e) =>
+                  setValue(e.currentTarget.value.slice(0, MAX_CHARACTERS))
+                }
+              />
               <Text fontSize="xs" color="gray.400" textAlign="right">
                 {value.length} / {MAX_CHARACTERS}
               </Text>
