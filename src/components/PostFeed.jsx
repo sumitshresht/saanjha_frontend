@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { VStack, Box, Spinner } from "@chakra-ui/react";
+import { VStack, Box, Spinner, Center } from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import PostCreator from "./PostCreator";
 import { useContext } from "react";
@@ -9,16 +9,23 @@ import { UserContext } from "../utils/UserContext";
 
 
 const PostFeed = () => {
-  const storedUser = useContext(UserContext);
+  
+  var storedUser = useContext(UserContext);
 
-const user = {
-  name: storedUser ? `${storedUser.user.firstName} ${storedUser.user.lastName}` : "Guest",
-  avatar: "https://i.pravatar.cc/150?img=12", // optional: can be personalized later
-};
+var user = storedUser && storedUser.user
+  ? {
+      name: `${storedUser.user.firstName} ${storedUser.user.lastName}`,
+      avatar: "https://i.pravatar.cc/150?img=12",
+    }
+  : {
+      name: "Guest",
+      avatar: "https://i.pravatar.cc/150?img=12",
+    };
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
+    
     const storedPosts = JSON.parse(localStorage.getItem("customPosts")) || [];
 
     fetch("https://dummyjson.com/posts")
@@ -36,7 +43,11 @@ const user = {
   }, []);
 
   if (loading) {
-    return <Spinner color="teal.300" size="xl" />;
+    return (
+      <Center>
+        <Spinner color="teal.300" size="xl" />
+      </Center>
+    );
   }
 
   const handleNewPost = (body, title) => {

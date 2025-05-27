@@ -36,7 +36,7 @@ export default function Navbar() {
       boxShadow="sm"
     >
       {/* Logo */}
-      <Flex align="center" fontSize="xl" fontWeight="bold">
+      <Flex align="center" marginLeft={{ base: "14", md: "14", lg: "0" }} fontSize="xl" fontWeight="bold">
         <Box mr={2} color="teal.300">
           <BsChatHeart size={22} />
         </Box>
@@ -56,7 +56,7 @@ export default function Navbar() {
         py={1}
         mx={8}
         w="full"
-        maxW="400px"
+        maxW={{ base: "90px", md: "400px" }}
         transition="all 0.2s ease"
         _focusWithin={{
           boxShadow: "0 0 0 2px teal",
@@ -67,6 +67,7 @@ export default function Navbar() {
         }}
       >
         <Input
+        display={{ base: "none", md: "flex" }}
           placeholder="Search"
           bg="transparent"
           border="none"

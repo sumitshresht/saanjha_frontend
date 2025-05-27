@@ -11,13 +11,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { LuSun, LuLock, LuDatabase } from "react-icons/lu";
+import { useNavigate } from "react-router";
 
 export default function Setting() {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
 
-  // Password-related states
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -80,6 +81,7 @@ export default function Setting() {
             display="flex"
             alignItems="center"
             gap="2"
+            color="white"
           >
             <LuSun />
             Appearance
@@ -94,6 +96,7 @@ export default function Setting() {
             display="flex"
             alignItems="center"
             gap="2"
+            color="white"
           >
             <LuLock />
             Account & Security
@@ -108,6 +111,7 @@ export default function Setting() {
             display="flex"
             alignItems="center"
             gap="2"
+            color="white"
           >
             <LuDatabase />
             Data Usage
@@ -115,7 +119,7 @@ export default function Setting() {
         </Tabs.List>
 
         <Tabs.Content value="appearance">
-          <Box p="4" bg="gray.50" borderRadius="md">
+          <Box p="4" bg="gray.800" borderRadius="md" color="white">
             <Heading size="md" mb="2">
               Appearance
             </Heading>
@@ -136,7 +140,7 @@ export default function Setting() {
         </Tabs.Content>
 
         <Tabs.Content value="account-security">
-          <Box p="4" bg="gray.50" borderRadius="md">
+          <Box p="4" bg="gray.800" borderRadius="md" color="white">
             <Heading size="md" mb="2">
               Account & Security
             </Heading>
@@ -159,27 +163,40 @@ export default function Setting() {
             <VStack spacing={4}>
               <Input
                 type="password"
+                bg="gray.900"
                 placeholder="Current Password"
                 value={currentPassword}
+                borderRadius={"xl"}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                bg="white"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
               <Input
                 type="password"
                 placeholder="New Password"
+                borderRadius={"xl"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                bg="white"
+                bg="gray.900"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
               <Input
                 type="password"
                 placeholder="Confirm New Password"
+                borderRadius={"xl"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                bg="white"
+                bg="gray.900"
+                color="white"
+                _placeholder={{ color: "gray.400" }}
               />
               <Button
-                colorScheme="teal"
+                 bg="gray.700"
+              variant="outline"
+              color={"white"}
+                borderRadius="full"
+              _hover={{ bg: "gray.500" }}
                 width="full"
                 onClick={handlePasswordChange}
               >
@@ -190,26 +207,33 @@ export default function Setting() {
         </Tabs.Content>
 
         <Tabs.Content value="data-usage">
-  <Box p="4" bg="gray.50" borderRadius="md">
-    <Heading size="md" mb="2">
-      Data Usage
-    </Heading>
-    <Text mb={4}>Manage your stored data preferences and clear app storage.</Text>
+          <Box p="4" bg="gray.800" borderRadius="md" color="white">
+            <Heading size="md" mb="2">
+              Data Usage
+            </Heading>
+            <Text mb={4}>
+              Manage your stored data preferences and clear app storage.
+            </Text>
 
-    <Button
-      colorScheme="red"
-      variant="outline"
-      borderRadius="full"
-      onClick={() => {
-        alert("All local data has been cleared.");
-        window.location.reload(); // optional: refresh to reflect changes
-      }}
-    >
-      Clear All Data
-    </Button>
-  </Box>
-</Tabs.Content>
-
+            <Button
+              //colorScheme="red"
+              bg="gray.500"
+              variant="outline"
+              color={"white"}
+              borderRadius="full"
+              _hover={{ bg: "red.600", color: "white" }}
+              onClick={() => {
+                sessionStorage.clear();
+                localStorage.clear();
+                navigate("/login");
+                alert("All local data has been cleared.");
+                window.location.reload();
+              }}
+            >
+              Clear All Data
+            </Button>
+          </Box>
+        </Tabs.Content>
       </Tabs.Root>
     </Box>
   );
