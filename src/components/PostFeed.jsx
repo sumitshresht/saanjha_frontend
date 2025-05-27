@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { VStack, Box, Spinner } from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import PostCreator from "./PostCreator";
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 
-const storedUser = JSON.parse(sessionStorage.getItem("user"));
 
-const user = {
-  name: storedUser ? `${storedUser.firstName} ${storedUser.lastName}` : "Guest",
-  avatar: "https://i.pravatar.cc/150?img=12", // optional: can be personalized later
-};
 
 
 const PostFeed = () => {
+  const storedUser = useContext(UserContext);
+
+const user = {
+  name: storedUser ? `${storedUser.user.firstName} ${storedUser.user.lastName}` : "Guest",
+  avatar: "https://i.pravatar.cc/150?img=12", // optional: can be personalized later
+};
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 

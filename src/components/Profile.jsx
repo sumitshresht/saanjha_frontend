@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 import {
   Box,
   Heading,
@@ -12,6 +14,7 @@ import {
 import { MdEdit, MdCheck } from "react-icons/md";
 
 const Profile = () => {
+  const { user, setUser } = useContext(UserContext);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -30,22 +33,22 @@ const Profile = () => {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
-    if (storedUser) {
-      setForm(JSON.parse(storedUser));
-    }
-  }, []);
+    if (user) {
+    setForm(user);
+  }
+}, [user]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSaveField = (field) => {
-    const updatedUser = { ...form };
-    sessionStorage.setItem("user", JSON.stringify(updatedUser));
-    setEditMode({ ...editMode, [field]: false });
-    setMessage("Profile updated successfully!");
-    setTimeout(() => setMessage(""), 3000);
-  };
+  const updatedUser = { ...form };
+  setUser(updatedUser); // this will trigger update in Navbar
+  setEditMode({ ...editMode, [field]: false });
+  setMessage("Profile updated successfully!");
+  setTimeout(() => setMessage(""), 3000);
+};
 
   const renderField = (label, fieldName) => (
     <Flex align="center" gap={2} width="100%">
@@ -119,9 +122,7 @@ const Profile = () => {
             alt={`${form.firstName} ${form.lastName}`}
           />
           <Avatar.Fallback name={`${form.firstName} ${form.lastName}`} />
-
         </Avatar.Root>
-        
 
         {renderField("First Name", "firstName")}
         {renderField("Last Name", "lastName")}

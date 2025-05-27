@@ -1,6 +1,7 @@
-import React from "react";
+import React, { use } from "react";
 import { Box, Flex, Input, Text, Avatar, Button, Menu } from "@chakra-ui/react";
-
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 import {
   BsChatHeart,
   BsSearch,
@@ -14,8 +15,8 @@ import { useNavigate, useLocation } from "react-router";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  const fullName = user ? `${user.firstName} ${user.lastName}` : "Guest";
+  const user = useContext(UserContext);
+  const fullName = user ? `${user.user.firstName} ${user.user.lastName}` : "Guest";
 
   const handleLogout = () => {
     // Example: Clear local storage and redirect to login

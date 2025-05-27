@@ -29,6 +29,7 @@ function App() {
         <Box flex="1" p={4}> {/* Main content wrapper */}
           <Routes>
             <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Center />} />
             <Route path="/feed" element={<Center />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Message />} />
@@ -40,9 +41,7 @@ function App() {
             </Route>
             
             {/* Public Routes */}
-            <Route path="/" element={<Center />} />
             <Route path="/login" element={<Login />} />
-            
             <Route path="/register" element={<Register />} />
           </Routes>
         </Box>
