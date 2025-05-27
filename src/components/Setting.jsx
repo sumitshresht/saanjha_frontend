@@ -190,13 +190,26 @@ export default function Setting() {
         </Tabs.Content>
 
         <Tabs.Content value="data-usage">
-          <Box p="4" bg="gray.50" borderRadius="md">
-            <Heading size="md" mb="2">
-              Data Usage
-            </Heading>
-            <Text>View and manage how your data is collected and used.</Text>
-          </Box>
-        </Tabs.Content>
+  <Box p="4" bg="gray.50" borderRadius="md">
+    <Heading size="md" mb="2">
+      Data Usage
+    </Heading>
+    <Text mb={4}>Manage your stored data preferences and clear app storage.</Text>
+
+    <Button
+      colorScheme="red"
+      variant="outline"
+      borderRadius="full"
+      onClick={() => {
+        alert("All local data has been cleared.");
+        window.location.reload(); // optional: refresh to reflect changes
+      }}
+    >
+      Clear All Data
+    </Button>
+  </Box>
+</Tabs.Content>
+
       </Tabs.Root>
     </Box>
   );

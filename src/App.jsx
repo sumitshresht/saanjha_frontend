@@ -8,6 +8,7 @@ import Setting from "./components/Setting";
 import Message from "./components/Message";
 import Profile from "./components/Profile";
 import Photos from "./components/Photos";
+import NotFound from "./components/NotFound";
 import Notifications from "./components/Notifications";
 import Help from "./components/Help";
 import Friends from "./components/Friends";
@@ -18,7 +19,7 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   const location = useLocation();
-  const hideLayoutRoutes = ["/login", "/register"];
+  const hideLayoutRoutes = ["/login", "/register"];  
   const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
@@ -43,6 +44,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFound />} /> {/* Fallback route */}
           </Routes>
         </Box>
       </Flex>
