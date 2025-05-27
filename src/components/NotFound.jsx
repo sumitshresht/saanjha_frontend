@@ -1,6 +1,6 @@
 import { Box, Heading, Button, Text, VStack } from "@chakra-ui/react";
 import Lottie from "lottie-react";
-import notFound from "../assets/404.json";
+import notFound from "../assets/notFound.json";
 import { useNavigate } from "react-router";
 
 function NotFound() {
