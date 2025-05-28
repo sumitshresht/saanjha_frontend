@@ -16,12 +16,13 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useContext(UserContext);
-  const fullName = user ? `${user.user.firstName} ${user.user.lastName}` : "Guest";
+  const fullName = (user && user.user) ? `${user.user.firstName} ${user.user.lastName}` : "Guest";
+  // user ka naam ya Guest
 
   const handleLogout = () => {
-    // Example: Clear local storage and redirect to login
-    localStorage.clear(); // or remove specific auth keys
-    window.location.href = "/login"; // adjust path to your login route
+    localStorage.clear(); 
+    sessionStorage.clear(); // session clear karo
+    window.location.href = "/login"; // login page pe bhejo
   };
 
   return (
@@ -35,7 +36,7 @@ export default function Navbar() {
       justify="space-between"
       boxShadow="sm"
     >
-      {/* Logo */}
+      {/* Logo part */}
       <Flex align="center" marginLeft={{ base: "14", md: "14", lg: "0" }} fontSize="xl" fontWeight="bold">
         <Box mr={2} color="teal.300">
           <BsChatHeart size={22} />
@@ -43,7 +44,7 @@ export default function Navbar() {
         <Box>Saanjha</Box>
       </Flex>
 
-      {/* Search Box */}
+      {/* Search bar */}
       <Box
         as="form"
         display="flex"
@@ -91,7 +92,7 @@ export default function Navbar() {
         </Button>
       </Box>
 
-      {/* User Avatar + Name + Dropdown */}
+      {/* User info + dropdown */}
       <Flex align="center" mr={2}>
         <Avatar.Root>
           <Avatar.Image src="https://images.unsplash.com/photo-1511806754518-53bada35f930" />

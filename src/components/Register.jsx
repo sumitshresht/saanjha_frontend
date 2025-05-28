@@ -11,7 +11,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import videoBg from "../assets/video1.mp4"; // same video used in login
+import videoBg from "../assets/video1.mp4"; 
 
 const Register = () => {
   const [form, setForm] = useState({
