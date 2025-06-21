@@ -13,6 +13,7 @@ import {
   Link,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useNavigate } from "react-router";
 import videoBg from "../assets/video1.mp4"; // Replace with your actual path
 
@@ -25,22 +26,53 @@ const Login = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { setUser } = useContext(UserContext);
 
-  const handleLogin = () => {
-    const storedUser = JSON.parse(sessionStorage.getItem("user"));
-    if (!storedUser) {
-      return setMessage({
-        text: "No registered user found. Please sign up.",
+//   const handleLogin = async () => {
+//    // const storedUser = JSON.parse(sessionStorage.getItem("user"));
+//    const response = await axios.get(`https://saanjhabackend-production.up.railway.app/users`);
+//    const storedUser = response.data;
+//     if (!storedUser) {
+//       return setMessage({
+//         text: "No registered user found. Please sign up.",
+//         type: "error",
+//       });
+//     }
+//     if (email === storedUser.email && password === storedUser.password) {
+//   setUser(storedUser); // update context
+//   setMessage({ text: "Login Successful!", type: "success" });
+//   setTimeout(() => navigate(from || "/feed", { replace: true }), 1000);
+// } else {
+//   setMessage({ text: "Invalid email or password.", type: "error" });
+// }
+
+//   };
+
+const handleLogin = async () => {
+    try {
+      const { data: users } = await axios.get("https://saanjhabackend-production.up.railway.app/users"); // ← array
+      // find the user that matches both email and password
+      const user = users.find(
+        (u) => u.email === email.trim() && u.password === password
+      );
+
+      if (!user) {
+        return setMessage({
+          text: "Invalid email or password.",
+          type: "error",
+        });
+      }
+
+      // success
+      setUser(user);                       // update global context
+      sessionStorage.setItem("user", JSON.stringify(user)); // keep session (optional)
+      setMessage({ text: "Login successful!", type: "success" });
+      setTimeout(() => navigate(from || "/feed", { replace: true }), 1000);
+    } catch (err) {
+      console.error(err);
+      setMessage({
+        text: "Unable to reach the server. Please try again later.",
         type: "error",
       });
     }
-    if (email === storedUser.email && password === storedUser.password) {
-  setUser(storedUser); // update context
-  setMessage({ text: "Login Successful!", type: "success" });
-  setTimeout(() => navigate(from || "/feed", { replace: true }), 1000);
-} else {
-  setMessage({ text: "Invalid email or password.", type: "error" });
-}
-
   };
 
   return (

@@ -10,6 +10,7 @@ import {
   Flex,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useNavigate } from "react-router";
 import videoBg from "../assets/video1.mp4"; 
 
@@ -31,8 +32,10 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     const { firstName, lastName, email, phone, password, confirmPassword } = form;
+    const userId = email.split("@")[0].toLowerCase().replace(/[^a-z0-9]/g, "_");
+    const profilePhoto = "";
 
     if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       return setMessage({ text: "Please fill in all fields.", type: "error" });
@@ -42,8 +45,10 @@ const Register = () => {
       return setMessage({ text: "Passwords do not match.", type: "error" });
     }
 
-    const user = { firstName, lastName, email, phone, password };
+    const user = { userId, firstName, lastName, email, phone, password, profilePhoto };
     sessionStorage.setItem("user", JSON.stringify(user));
+    const response = await axios.post(`https://saanjhabackend-production.up.railway.app/register`, user);
+    console.log(response);
 
     setMessage({ text: "Sign-Up Successful! Redirecting to login...", type: "success" });
     setTimeout(() => navigate("/login"), 2000);

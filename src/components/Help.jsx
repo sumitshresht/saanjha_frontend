@@ -15,45 +15,61 @@ function Help() {
   return (
     <Box
       minH="100vh"
-      bg="gray.900"
-      color="gray.100"
-      px={6}
-      py={12}
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
+      px={{ base: 4, md: 8 }}
+      py={{ base: 8, md: 12 }}
+      bg="transparent"
     >
-      <Box maxW="3xl" w="full">
-        <Heading fontSize="4xl" textAlign="center" color="teal.400" mb={4}>
+      <Box
+        w="full"
+        maxW="800px"
+        mx="auto"
+        bg="rgba(255, 255, 255, 0.06)"
+        backdropFilter="blur(20px)"
+        border="1px solid rgba(255, 255, 255, 0.12)"
+        borderRadius="2xl"
+        boxShadow="lg"
+        color="gray.100"
+        p={{ base: 6, md: 10 }}
+        mt={{ base: 4, md: 8 }}
+      >
+        <Heading
+          fontSize={{ base: "2xl", md: "3xl" }}
+          textAlign="center"
+          color="teal.300"
+          mb={4}
+        >
           Help Center
         </Heading>
 
-        <Text textAlign="center" fontSize="md" color="gray.400" mb={8}>
+        <Text
+          textAlign="center"
+          fontSize={{ base: "sm", md: "md" }}
+          color="gray.400"
+          mb={8}
+        >
           Get answers to common questions or reach out for support.
         </Text>
 
         <Flex mb={10} justify="center">
           <Input
             placeholder="Search for help..."
-            bg="gray.800"
-            color="gray.100"
-            border="1px solid"
-            borderColor="gray.700"
+            bg="rgba(255,255,255,0.05)"
+            color="white"
+            border="1px solid rgba(255,255,255,0.1)"
             maxW="500px"
             _placeholder={{ color: "gray.500" }}
-            _focus={{ borderColor: "teal.400", boxShadow: "0 0 0 1px teal" }}
+            _focus={{
+              borderColor: "teal.400",
+              boxShadow: "0 0 0 1px teal.400",
+            }}
             size="md"
             borderRadius="md"
           />
         </Flex>
 
         <VStack spacing={6} align="stretch">
-          <Box
-            borderBottom="1px solid"
-            borderColor="gray.800"
-            pb={4}
-          >
-            <Text fontWeight="medium" mb={1}>
+          <Box borderBottom="1px solid rgba(255, 255, 255, 0.1)" pb={4}>
+            <Text fontWeight="semibold" mb={1}>
               How do I edit my profile?
             </Text>
             <Text fontSize="sm" color="gray.400">
@@ -61,12 +77,8 @@ function Help() {
             </Text>
           </Box>
 
-          <Box
-            borderBottom="1px solid"
-            borderColor="gray.800"
-            pb={4}
-          >
-            <Text fontWeight="medium" mb={1}>
+          <Box borderBottom="1px solid rgba(255, 255, 255, 0.1)" pb={4}>
+            <Text fontWeight="semibold" mb={1}>
               How do I reset my password?
             </Text>
             <Text fontSize="sm" color="gray.400">
@@ -74,8 +86,8 @@ function Help() {
             </Text>
           </Box>
 
-          <Box pb={4}>
-            <Text fontWeight="medium" mb={1}>
+          <Box pb={2}>
+            <Text fontWeight="semibold" mb={1}>
               Who do I contact for support?
             </Text>
             <Text fontSize="sm" color="gray.400">
@@ -84,15 +96,17 @@ function Help() {
           </Box>
         </VStack>
 
-        <Flex justify="center" mt={12}>
+        <Flex justify="center" mt={10}>
           <Button
             onClick={() => navigate("/")}
-            bg="gray.800"
+            bg="teal.600"
             color="white"
-            _hover={{ bg: "gray.500" }}
+            _hover={{ bg: "teal.500" }}
             borderRadius="full"
             px={6}
-            size="lg"
+            py={2}
+            size="md"
+            fontWeight="semibold"
           >
             Back to Home
           </Button>

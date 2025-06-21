@@ -1,88 +1,125 @@
-import { useEffect, useState } from "react";
-import { VStack, Box, Spinner, Center } from "@chakra-ui/react";
+import { useEffect, useState, useContext } from "react";
+import {
+  VStack,
+  Box,
+  Spinner,
+  Center,
+  Container,
+  Flex,
+} from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import PostCreator from "./PostCreator";
-import { useContext } from "react";
 import { UserContext } from "../utils/UserContext";
-
-
-
+import axios from "axios";
 
 const PostFeed = () => {
-  
-  var storedUser = useContext(UserContext);
+  const storedUser = useContext(UserContext);
+  const currUser = storedUser?.user
+    ? {
+        name: `${storedUser.user.firstName} ${storedUser.user.lastName}`,
+        avatar: storedUser.user.profileImage,
+        userId: storedUser.user.userId,
+      }
+    : {
+        name: "Guest",
+        avatar: "",
+      };
 
-var user = storedUser && storedUser.user
-  ? {
-      name: `${storedUser.user.firstName} ${storedUser.user.lastName}`,
-      avatar: "https://i.pravatar.cc/150?img=12",
-    }
-  : {
-      name: "Guest",
-      avatar: "https://i.pravatar.cc/150?img=12",
-    };
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+
+  const handleRemovePost = (deletedPost) => {
+    setPosts((prev) => prev.filter((p) => p.postId !== deletedPost.postId));
+  };
 
   useEffect(() => {
-    
-    const storedPosts = JSON.parse(localStorage.getItem("customPosts")) || [];
-
-    fetch("https://dummyjson.com/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        // Merge local posts first, then API posts
-        setPosts([...storedPosts, ...data.posts]);
+    axios
+      .get("https://saanjhabackend-production.up.railway.app/posts")
+      .then((res) => {
+        const sorted = res.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setPosts(sorted);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Failed to fetch posts:", error);
-        setPosts(storedPosts); // fallback to just local posts
         setLoading(false);
       });
   }, []);
 
+  const handleNewPost = async (postContent, imageUrl) => {
+    const userInfo = storedUser?.user || {
+      firstName: "Guest",
+      lastName: "",
+    };
+
+    const newPost = {
+      postContent,
+      imageUrl,
+      user: userInfo,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://saanjhabackend-production.up.railway.app/posts",
+        newPost,
+        {
+          headers: {
+            "user-id": currUser.userId || "guest_user",
+          },
+        }
+      );
+      setPosts((prev) => [
+        {
+          ...response.data,
+          user: userInfo,
+          createdAt: new Date().toISOString(),
+        },
+        ...prev,
+      ]);
+    } catch (error) {
+      console.error("Post creation failed:", error);
+      alert("Failed to post: " + error.message);
+    }
+  };
+
   if (loading) {
     return (
-      <Center>
+      <Center minH="100vh">
         <Spinner color="teal.300" size="xl" />
       </Center>
     );
   }
 
-  const handleNewPost = (body, title) => {
-    const newPost = {
-      title: title || "Untitled",
-      body,
-      reactions: {
-        likes: 0,
-        dislikes: 0,
-      },
-    };
-
-    // Add to state
-    setPosts((prev) => {
-      const updated = [newPost, ...prev];
-      // Save only custom posts (without ID) to localStorage
-      const customOnly = updated.filter((p) => !p.id);
-      localStorage.setItem("customPosts", JSON.stringify(customOnly));
-      return updated;
-    });
-  };
-
   return (
-    <VStack spacing={6} py={4}>
-      {/* Shared layout wrapper */}
-      <Box w="100%" maxW={{ base: "100%", md: "700px", lg: "900px" }} mb={3} mx="auto">
-        <PostCreator onPost={handleNewPost} user={user} />
-      </Box>
-
-      {posts.map((post, index) => (
-        <Box key={`${post.title}-${index}`} w="100%" maxW="900px" mb="3" mx="auto">
-          <PostCard key={`${post.title}-${index}`} post={post} user={user} />
+    <Container maxW="container.lg" px={{ base: "-0.5", sm: 2 }} pt={6}>
+      <Flex
+        direction="column"
+        align="center"
+        gap={6}
+        style={{
+          //background: "rgba(255, 255, 255, 0.06)",
+         // backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          borderRadius: "20px",
+          //border: "1px solid rgba(255, 255, 255, 0.125)",
+          padding: "4px",
+        }}
+      >
+        <Box w="full" maxW={{ base: "100%", md: "700px" }}>
+          <PostCreator onPost={handleNewPost} user={currUser} />
         </Box>
-      ))}
-    </VStack>
+
+        <VStack spacing={6} w="full">
+          {posts.map((post, index) => (
+            <Box key={`post-${index}`} w="full" maxW={{ base: "100%", md: "700px" }}>
+              <PostCard post={post} onUnsave={handleRemovePost} />
+            </Box>
+          ))}
+        </VStack>
+      </Flex>
+    </Container>
   );
 };
 

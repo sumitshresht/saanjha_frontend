@@ -1,23 +1,21 @@
+import { Box } from "@chakra-ui/react";
+import PostFeed from "./PostFeed";
 
-import {Container, Box, Heading} from '@chakra-ui/react'
-//import PostCard from './PostCard';
-//import PostList from './PostList'; // Uncomment if you want to use PostList instead of PostCard
-//import Feed from './Feed';
- import PostFeed from './PostFeed';
 const Center = () => {
-    
-    return (
-        <Container 
-                display={'flex'} 
-                flexDirection={'column'}
-                >
-                <Container>
-                    <PostFeed/>
-                </Container>
-                
-            
-        </Container >
-    );
-}
+  return (
+    <Box
+      w="100%"
+      maxW="1000px"
+      mx="auto"
+      px={{ base: 2, md: 6 }}
+      py={{ base: 4, md: 6 }}
+      display="flex"
+      flexDirection="column"
+      gap={4}
+    >
+      <PostFeed />
+    </Box>
+  );
+};
 
 export default Center;
