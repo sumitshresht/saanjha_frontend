@@ -1,62 +1,48 @@
+# 🐦 Saanjha — A Social Microblogging App (Frontend)
 
-# 🐦 Saanjha — A Social Microblogging App
+**Saanjha** is a sleek, responsive social microblogging platform that lets users share thoughts, interact with posts, and manage profiles — all in a modern, fast, and mobile-friendly UI.
 
-**Saanjha** is a modern, lightweight social platform. Built with **React + Vite**, it allows users to share posts, interact with others, save content, and manage their profiles—all with a sleek and responsive interface powered by Chakra UI.
+Built using **React + Vite**, styled with **Chakra UI**, and seamlessly connected to the Spring Boot backend.
+
+---
 
 ## ✨ Features
 
-* 📝 **Post Creation & Feed** – Share thoughts and see what others are posting
-* ❤️ **Post Interactions** – Like and engage with posts
-* 📌 **Save Posts** – Bookmark favorites to revisit later
-* 👤 **Profile Handling** – View and edit your profile, manage saved posts
-* 🔍 **Search Functionality** – Quickly search content
-* 📱 **Responsive Design** – Works great on mobile and desktop
-* ⚡ **Fast Dev Experience** – Powered by Vite & HMR
+- 📝 **Post Creation & Feed** – Share thoughts and see what others are posting
+- ❤️ **Post Interactions** – Like and dislike posts
+- 📌 **Save Posts** – Bookmark posts for later
+- 👤 **Profile Handling** – View your posts, saved content, and profile info
+- 🔍 **Search Functionality** – Quickly find content
+- 📱 **Responsive Design** – Optimized for mobile and desktop
+- 🖼️ **Media Uploads** – Share images and short videos
+- ⚡ **Fast Development Experience** – Powered by Vite & HMR
+
+---
 
 ## 🛠 Tech Stack
 
-* React
-* Vite
-* Chakra UI
-* React Router
-* React Icons
-* Axios
-* Context API
+- **React** (Functional Components & Hooks)
+- **Vite** (blazing-fast dev server and build tool)
+- **Chakra UI** (for accessible, responsive UI)
+- **React Router** (client-side routing)
+- **React Icons** (modern icons)
+- **Axios** (for API communication)
+- **Context API** (for global user state)
 
+---
+
+## 🌐 Live Demo
+
+Frontend is hosted on **Vercel**:
+
+🔗 [https://saanjha-frontend.vercel.app](https://saanjha-frontend.vercel.app)
+
+---
 
 ## 🚀 Getting Started
 
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/sumitshresht/messaging-app.git
-   cd messaging-app
-   ```
-
-2. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server:**
-
-   ```bash
-   npm run dev
-   ```
-
-4. Open your browser at local host
-
-## 🏗 Build for Production
+### 📦 Clone the repository
 
 ```bash
-npm run build
-```
-
-## 🧠 Future Enhancements
-
-* 🔔 Real-time notifications
-* 🌙 Dark mode
-* 📸 Image/video post support
-* 🏷️ Hashtag & mention features
-
+git clone https://github.com/sumitshresht/messaging-app.git
+cd messaging-app
