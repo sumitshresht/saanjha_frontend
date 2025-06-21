@@ -233,6 +233,7 @@ export default function Navbar() {
               size="sm"
               ml={2}
               px={2}
+              _expanded={{ bg: "rgba(255,255,255,0.1)" }}
               _hover={{ bg: "rgba(255,255,255,0.1)" }}
             >
               <Flex align="center" gap={1} flexShrink={0}>
