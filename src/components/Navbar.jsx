@@ -270,13 +270,13 @@ export default function Navbar() {
               boxShadow="lg"
               border="1px solid rgba(255,255,255,0.1)"
             >
-              <Menu.Item color="white" _hover={{ bg: rgba(255,255,255,0.1), color: "white" }} onClick={() => navigate("/profile")}>
+              <Menu.Item color="white" _hover={{ bg: "rgba(255,255,255,0.1)", color: "white" }} onClick={() => navigate("/profile")}>
                 <Flex gap={3}>
                   <BsPerson />
                   <Text>Profile</Text>
                 </Flex>
               </Menu.Item>
-              <Menu.Item color="white" _hover={{ bg: rgba(255,255,255,0.1), color: "white" }} onClick={() => navigate("/setting")}>
+              <Menu.Item color="white" _hover={{ bg: "rgba(255,255,255,0.1)", color: "white" }} onClick={() => navigate("/setting")}>
                 <Flex gap={3}>
                   <BsGear />
                   <Text>Settings</Text>
