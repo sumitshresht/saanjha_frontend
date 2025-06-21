@@ -1,7 +1,7 @@
 
 # 🐦 Saanjha — A Social Microblogging App
 
-**Saanjha** is a modern, lightweight social platform inspired by Twitter. Built with **React + Vite**, it allows users to share posts, interact with others, save content, and manage their profiles—all with a sleek and responsive interface powered by Chakra UI.
+**Saanjha** is a modern, lightweight social platform. Built with **React + Vite**, it allows users to share posts, interact with others, save content, and manage their profiles—all with a sleek and responsive interface powered by Chakra UI.
 
 ## ✨ Features
 
